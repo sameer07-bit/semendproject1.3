@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../api';
 import { 
   generateHeadlineSuggestions, 
   improveWritingStyle, 
@@ -97,7 +98,7 @@ function Dashboard({ user, setUser, userName, setUserName }) {
     try {
       const targetEmail = email || localStorage.getItem("user");
       if (!targetEmail) return;
-      const response = await axios.get(`http://localhost:8080/api/posts?userEmail=${targetEmail}`);
+      const response = await axios.get(`${API_BASE_URL}/api/posts?userEmail=${targetEmail}`);
       setPosts(response.data);
     } catch (error) {
       console.log("Error fetching posts:", error);
@@ -126,7 +127,7 @@ function Dashboard({ user, setUser, userName, setUserName }) {
 
   const loadVersions = async (postId) => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/posts/${postId}/versions`);
+      const res = await axios.get(`${API_BASE_URL}/api/posts/${postId}/versions`);
       setVersions(res.data);
     } catch (err) {
       console.error("Error loading version history:", err);
@@ -237,11 +238,11 @@ function Dashboard({ user, setUser, userName, setUserName }) {
 
       if (currentPostId) {
         // PUT update request
-        const res = await axios.put(`http://localhost:8080/api/posts/${currentPostId}`, postData);
+        const res = await axios.put(`${API_BASE_URL}/api/posts/${currentPostId}`, postData);
         alert(statusType === "Published" ? "Manuscript Updated & Published" : "Manuscript Update Saved");
       } else {
         // POST create request
-        const res = await axios.post("http://localhost:8080/api/posts", postData);
+        const res = await axios.post(`${API_BASE_URL}/api/posts`, postData);
         alert(statusType === "Published" ? "Manuscript Published" : "Draft Manuscript Saved");
         if (res.data && res.data.id) {
           setCurrentPostId(res.data.id);
@@ -261,7 +262,7 @@ function Dashboard({ user, setUser, userName, setUserName }) {
   const deletePost = async (id) => {
     if (!window.confirm("Are you sure you want to delete this manuscript?")) return;
     try {
-      await axios.delete(`http://localhost:8080/api/posts/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/posts/${id}`);
       if (currentPostId === id) {
         startNewManuscript();
       }

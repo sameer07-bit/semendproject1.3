@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../api';
 import '../styles/home.css'; // Reuse core modal and animation styles
 import '../styles/library.css'; // Custom library styles
 
@@ -69,7 +70,7 @@ function Library() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/posts");
+      const response = await axios.get(`${API_BASE_URL}/api/posts`);
       const publishedPosts = response.data.filter(
         (post) => post.status === "Published" && (post.isPrivate === null || !post.isPrivate)
       );
@@ -94,7 +95,7 @@ function Library() {
 
   const performSemanticSearch = async (query) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/posts/search?query=${encodeURIComponent(query)}`);
+      const response = await axios.get(`${API_BASE_URL}/api/posts/search?query=${encodeURIComponent(query)}`);
       // filter to public published only
       const searchPublished = response.data.filter(
         (post) => post.status === "Published" && (post.isPrivate === null || !post.isPrivate)

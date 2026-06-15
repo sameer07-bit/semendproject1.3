@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import { API_BASE_URL } from '../api';
 
 import '../styles/home.css';
 
@@ -24,7 +25,7 @@ function Home() {
 
       const response =
         await axios.get(
-          "http://localhost:8080/api/posts"
+          `${API_BASE_URL}/api/posts`
         );
 
       const publishedPosts =

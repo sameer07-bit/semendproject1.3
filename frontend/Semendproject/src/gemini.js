@@ -1,8 +1,6 @@
 function getApiKey() {
   const storedKey = localStorage.getItem("gemini_api_key");
-  const oldPrefix = "AQ.Ab8RN6K87";
-  const oldSuffix = "ZtLtXQnS3WUI9bQh6STSbkvBSh0lcj1KQvc1yWvTQ";
-  if (storedKey && storedKey.trim() !== "" && !(storedKey.includes(oldPrefix) && storedKey.includes(oldSuffix))) {
+  if (storedKey && storedKey.trim() !== "" && !storedKey.includes("DUMMY_KEY")) {
     return storedKey.trim();
   }
   return import.meta.env.VITE_GEMINI_API_KEY || "YOUR_GEMINI_API_KEY";

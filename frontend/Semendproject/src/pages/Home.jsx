@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../api';
 import '../styles/home.css';
 
 const LITERARY_QUOTES = [
@@ -80,7 +81,7 @@ function Home() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/posts");
+      const response = await axios.get(`${API_BASE_URL}/api/posts`);
       const publishedPosts = response.data.filter(
         (post) => post.status === "Published"
       );
@@ -194,7 +195,7 @@ function Home() {
 
   const performSemanticSearch = async (query) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/posts/search?query=${encodeURIComponent(query)}`);
+      const response = await axios.get(`${API_BASE_URL}/api/posts/search?query=${encodeURIComponent(query)}`);
       setPosts(response.data);
     } catch (error) {
       console.error("Semantic search failed:", error);
@@ -482,21 +483,6 @@ function Home() {
           </div>
         )}
       </section>
-
-      {/* Immersive Landing Footer */}
-      <footer className="landing-footer">
-        <div className="footer-content">
-          <p className="copyright-text">
-            © {new Date().getFullYear()} Sameer & Co. All Rights Reserved.
-          </p>
-          <div className="student-ids-container">
-            <span className="student-id-label">Registration IDs:</span>
-            <span className="student-id-badge">2500080004</span>
-            <span className="student-id-badge">2500030310</span>
-            <span className="student-id-badge">2500090288</span>
-          </div>
-        </div>
-      </footer>
 
   {/* Full-Page Immersive Reading Modal */ }
 {
