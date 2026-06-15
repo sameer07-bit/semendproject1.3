@@ -483,6 +483,21 @@ function Home() {
         )}
       </section>
 
+      {/* Immersive Landing Footer */}
+      <footer className="landing-footer">
+        <div className="footer-content">
+          <p className="copyright-text">
+            © {new Date().getFullYear()} Sameer & Co. All Rights Reserved.
+          </p>
+          <div className="student-ids-container">
+            <span className="student-id-label">Registration IDs:</span>
+            <span className="student-id-badge">2500080004</span>
+            <span className="student-id-badge">2500030310</span>
+            <span className="student-id-badge">2500090288</span>
+          </div>
+        </div>
+      </footer>
+
   {/* Full-Page Immersive Reading Modal */ }
 {
   activePost && (
