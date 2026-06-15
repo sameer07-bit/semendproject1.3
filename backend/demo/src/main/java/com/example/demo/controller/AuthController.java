@@ -26,6 +26,11 @@ public class AuthController {
     // REGISTER
     @PostMapping("/register")
     public Users register(@RequestBody Users user) {
+        if (userService.findByEmail(user.getEmail()).isPresent()) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.BAD_REQUEST, "Email already registered"
+            );
+        }
         if (user.getRole() == null || user.getRole().trim().isEmpty()) {
             user.setRole("USER");
         }
