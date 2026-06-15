@@ -17,6 +17,9 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private jakarta.servlet.http.HttpServletRequest request;
+
     @PostMapping
     public Post createPost(@RequestBody Post post) {
         return postService.savePost(post);
@@ -24,7 +27,9 @@ public class PostController {
 
     @PutMapping("/{id}")
     public Post updatePost(@PathVariable Long id, @RequestBody Post post) {
-        return postService.updatePost(id, post);
+        String email = (String) request.getAttribute("userEmail");
+        String role = (String) request.getAttribute("userRole");
+        return postService.updatePostWithRBAC(id, post, email, role);
     }
 
     @GetMapping
@@ -45,6 +50,8 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
+        String email = (String) request.getAttribute("userEmail");
+        String role = (String) request.getAttribute("userRole");
+        postService.deletePostWithRBAC(id, email, role);
     }
 }

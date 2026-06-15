@@ -67,17 +67,21 @@ function Home() {
       setPollVotes(JSON.parse(savedVotes));
     }
     setHasVoted(localStorage.getItem('hasVotedPoll') === 'true');
-
-    // Load Reactions
-    const savedLikes = localStorage.getItem('likesMap');
-    if (savedLikes) {
-      setLikesMap(JSON.parse(savedLikes));
-    }
-    const savedComments = localStorage.getItem('commentsMap');
-    if (savedComments) {
-      setCommentsMap(JSON.parse(savedComments));
-    }
   }, []);
+
+  const fetchLikesAndCommentsForPosts = async (postsList) => {
+    postsList.forEach(async (post) => {
+      try {
+        const likesRes = await axios.get(`${API_BASE_URL}/api/likes/${post.id}`);
+        setLikesMap(prev => ({ ...prev, [post.id]: likesRes.data.likes }));
+        
+        const commentsRes = await axios.get(`${API_BASE_URL}/api/comments/${post.id}`);
+        setCommentsMap(prev => ({ ...prev, [post.id]: commentsRes.data.map(c => c.content) }));
+      } catch (e) {
+        console.error("Error loading reactions from gateway", e);
+      }
+    });
+  };
 
   const fetchPosts = async () => {
     try {
@@ -86,6 +90,7 @@ function Home() {
         (post) => post.status === "Published"
       );
       setPosts(publishedPosts);
+      fetchLikesAndCommentsForPosts(publishedPosts);
     } catch (error) {
       console.log(error);
     }
@@ -135,40 +140,31 @@ function Home() {
   };
 
   // Likes Handler
-  const handleLike = (postId) => {
-    const prevLikes = likesMap[postId] || 0;
-    const isLiked = localStorage.getItem(`liked_${postId}`) === 'true';
-
-    let newLikes;
-    if (isLiked) {
-      newLikes = Math.max(0, prevLikes - 1);
-      localStorage.setItem(`liked_${postId}`, 'false');
-    } else {
-      newLikes = prevLikes + 1;
-      localStorage.setItem(`liked_${postId}`, 'true');
+  const handleLike = async (postId) => {
+    const storedUser = localStorage.getItem("user") || "anonymous_reader";
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/likes/${postId}`, { userEmail: storedUser });
+      setLikesMap(prev => ({ ...prev, [postId]: res.data.likes }));
+    } catch (e) {
+      console.error("Failed to toggle like:", e);
     }
-
-    const updatedLikesMap = {
-      ...likesMap,
-      [postId]: newLikes
-    };
-    setLikesMap(updatedLikesMap);
-    localStorage.setItem('likesMap', JSON.stringify(updatedLikesMap));
   };
 
   // Comments Handler
-  const handleAddComment = (postId) => {
+  const handleAddComment = async (postId) => {
     if (!newComment || newComment.trim() === '') return;
-    const postComments = commentsMap[postId] || [];
-    const updatedComments = [...postComments, newComment.trim()];
-
-    const updatedCommentsMap = {
-      ...commentsMap,
-      [postId]: updatedComments
-    };
-    setCommentsMap(updatedCommentsMap);
-    localStorage.setItem('commentsMap', JSON.stringify(updatedCommentsMap));
-    setNewComment('');
+    const storedUser = localStorage.getItem("user") || "Anonymous Reader";
+    try {
+      await axios.post(`${API_BASE_URL}/api/comments/${postId}`, {
+        author: storedUser.split('@')[0],
+        content: newComment.trim()
+      });
+      const commentsRes = await axios.get(`${API_BASE_URL}/api/comments/${postId}`);
+      setCommentsMap(prev => ({ ...prev, [postId]: commentsRes.data.map(c => c.content) }));
+      setNewComment('');
+    } catch (e) {
+      console.error("Failed to add comment:", e);
+    }
   };
 
   // Share Clipboard Handler
@@ -197,6 +193,7 @@ function Home() {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/posts/search?query=${encodeURIComponent(query)}`);
       setPosts(response.data);
+      fetchLikesAndCommentsForPosts(response.data);
     } catch (error) {
       console.error("Semantic search failed:", error);
     }

@@ -116,6 +116,34 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    public void deletePostWithRBAC(Long id, String email, String role) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isEmpty()) {
+            throw new IllegalArgumentException("Post not found with id: " + id);
+        }
+        Post post = postOpt.get();
+        // RBAC Check: Only admin or the post author can delete a post
+        if ("ADMIN".equalsIgnoreCase(role) || (post.getAuthorEmail() != null && post.getAuthorEmail().equalsIgnoreCase(email))) {
+            postRepository.deleteById(id);
+        } else {
+            throw new SecurityException("Unauthorized: You do not have permission to delete this manuscript");
+        }
+    }
+
+    public Post updatePostWithRBAC(Long id, Post updatedPost, String email, String role) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isEmpty()) {
+            throw new IllegalArgumentException("Post not found with id: " + id);
+        }
+        Post post = postOpt.get();
+        // RBAC Check: Only admin or the post author can update a post
+        if ("ADMIN".equalsIgnoreCase(role) || (post.getAuthorEmail() != null && post.getAuthorEmail().equalsIgnoreCase(email))) {
+            return updatePost(id, updatedPost);
+        } else {
+            throw new SecurityException("Unauthorized: You do not have permission to edit this manuscript");
+        }
+    }
+
     public List<PostVersion> getVersionsByPostId(Long postId) {
         return postVersionRepository.findByPostIdOrderByVersionNumberDesc(postId);
     }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import API from '../api';
+import axios from 'axios';
 import '../styles/auth.css';
 
 function AuthPage({ setUser, setUserName }) {
@@ -57,8 +58,17 @@ function AuthPage({ setUser, setUserName }) {
       if (message === "Login Successful") {
         const loggedUser = response.data.email || loginData.email;
         const loggedName = response.data.name || "Writer";
+        const token = response.data.token;
+        const role = response.data.role || "USER";
+
         localStorage.setItem("user", loggedUser);
         localStorage.setItem("userName", loggedName);
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+
+        // Dynamically assign default authorization headers
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
         if (setUser) setUser(loggedUser);
         if (setUserName) setUserName(loggedName);
         navigate('/dashboard');
