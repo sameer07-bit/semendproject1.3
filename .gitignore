@@ -1,0 +1,26 @@
+# Dependency directories
+**/node_modules/
+**/target/
+**/venv/
+**/__pycache__/
+**/.venv/
+*.pyc
+
+# Built outputs
+**/dist/
+*.class
+
+# Temporary or large files
+frontend.zip
+*.log
+*.tmp
+.DS_Store
+
+# IDE configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

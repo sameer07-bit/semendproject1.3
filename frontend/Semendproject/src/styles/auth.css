@@ -1,0 +1,193 @@
+.auth-page-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end; /* Align cards to the right half of the image */
+  align-items: center;
+  position: relative;
+  background-image: url('/library.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-right: 8%; /* Adjust spacing to place container in the plane wall area */
+  overflow: hidden;
+}
+
+/* Base overlay to blend and soft-focus the background if needed */
+.auth-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(58, 34, 24, 0.03); /* Extremely light sepia tint */
+  pointer-events: none;
+}
+
+/* Card Container fitting the woody palette */
+.auth-card-container {
+  width: 460px;
+  background: rgba(253, 251, 247, 0.95); /* Cream bg matching the wall */
+  border: 1px solid rgba(92, 62, 53, 0.12);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 20px 50px rgba(58, 34, 24, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 5;
+}
+
+/* Slide Slider Architecture */
+.auth-card-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+}
+
+.auth-card-slider {
+  display: flex;
+  width: 200%; /* Holds two forms side-by-side */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.25, 1);
+}
+
+.show-login {
+  transform: translateX(0%);
+}
+
+.show-signup {
+  transform: translateX(-50%);
+}
+
+.auth-slide {
+  width: 50%;
+  padding: 48px 40px;
+}
+
+/* Form Styles */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-header {
+  margin-bottom: 8px;
+}
+
+.brand-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent-amber);
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.auth-form h1 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--color-wood-dark);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.auth-form p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+/* Input Fields */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-wood-medium);
+  letter-spacing: 0.5px;
+}
+
+.auth-form input {
+  padding: 14px 18px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(92, 62, 53, 0.18);
+  background: var(--color-bg-light);
+  color: var(--color-wood-dark);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.auth-form input:focus {
+  border-color: var(--color-accent-amber);
+  background: var(--color-bg-white);
+  box-shadow: 0 0 0 3px rgba(197, 155, 108, 0.15);
+}
+
+.auth-form input::placeholder {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Submit Buttons */
+.auth-btn {
+  background: var(--color-wood-dark);
+  color: var(--color-bg-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  margin-top: 8px;
+}
+
+.auth-btn:hover {
+  background: var(--color-wood-medium);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Footers and links */
+.auth-switch-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary) !important;
+}
+
+.auth-link {
+  color: var(--color-accent-amber);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.auth-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-page-container {
+    justify-content: center;
+    padding-right: 0;
+    background-image: linear-gradient(rgba(253, 251, 247, 0.9), rgba(253, 251, 247, 0.9)), url('/library.jpg');
+  }
+  
+  .auth-card-container {
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .auth-slide {
+    padding: 36px 24px;
+  }
+}
+

@@ -1,0 +1,258 @@
+/* Library Page Styling */
+
+.library-page {
+  padding: 0 0 60px 0;
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+.library-hero {
+  position: relative;
+  background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+  color: #fff;
+  padding: 80px 24px;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border-bottom: 4px solid var(--color-wood-dark, #5c3e35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.library-hero-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20% 30%, rgba(92, 62, 53, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(41, 128, 185, 0.15) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.library-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.library-badge {
+  display: inline-block;
+  background-color: var(--color-accent-amber, #f39c12);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+}
+
+.library-hero h1 {
+  font-family: 'Outfit', 'Playfair Display', serif;
+  font-size: 3rem;
+  margin: 0 0 16px 0;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.library-hero p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.library-browse-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Grid Layout */
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* Premium Book Cards */
+.library-card {
+  background: var(--color-card-bg, #ffffff);
+  border: 1px solid var(--color-border, rgba(92, 62, 53, 0.12));
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.library-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(92, 62, 53, 0.12);
+  border-color: rgba(92, 62, 53, 0.25);
+}
+
+.library-card-cover {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.library-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.library-card:hover .library-card-cover img {
+  transform: scale(1.04);
+}
+
+/* Read Ribbon Badge */
+.read-ribbon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #27ae60;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(39, 174, 96, 0.4);
+  z-index: 5;
+  letter-spacing: 0.5px;
+}
+
+.library-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.library-card-body h3 {
+  font-size: 1.3rem;
+  margin: 12px 0 8px 0;
+  color: var(--color-text-primary, #2c3e50);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.library-excerpt {
+  font-size: 0.92rem;
+  color: var(--color-text-secondary, #555);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.card-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 14px;
+}
+
+/* Read Toggle Button */
+.mark-read-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid rgba(92, 62, 53, 0.18);
+  border-radius: 20px;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mark-read-btn:hover {
+  background-color: rgba(92, 62, 53, 0.05);
+  border-color: rgba(92, 62, 53, 0.3);
+  color: var(--color-wood-dark);
+}
+
+.mark-read-btn.is-read {
+  background-color: rgba(39, 174, 96, 0.1);
+  border-color: rgba(39, 174, 96, 0.3);
+  color: #27ae60;
+}
+
+.mark-read-btn.is-read:hover {
+  background-color: rgba(192, 57, 43, 0.1);
+  border-color: rgba(192, 57, 43, 0.3);
+  color: #c0392b;
+}
+
+/* Modal Mark Read Options */
+.modal-mark-read-btn {
+  background-color: #fff;
+  border: 1px solid rgba(92, 62, 53, 0.2);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-mark-read-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.modal-mark-read-btn.active-read {
+  background-color: #ebf5fb;
+  border-color: #aed6f1;
+  color: #2980b9;
+}
+
+/* Card Read overlay visual styling */
+.card-read-state {
+  border-color: rgba(39, 174, 96, 0.25);
+  box-shadow: 0 4px 16px rgba(39, 174, 96, 0.03);
+}
+
+/* Dark Mode Adaptation */
+body.dark-mode .library-card {
+  background-color: #1e252b;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .library-card-body h3 {
+  color: #eceff1;
+}
+
+body.dark-mode .library-excerpt {
+  color: #b0bec5;
+}
+
+body.dark-mode .mark-read-btn {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #cfd8dc;
+}
+
+body.dark-mode .mark-read-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .mark-read-btn.is-read {
+  background-color: rgba(39, 174, 96, 0.15);
+  border-color: rgba(39, 174, 96, 0.4);
+  color: #2ecc71;
+}

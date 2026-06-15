@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Fonts */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Theme Palette - Light Bright Woody */
+  --color-bg-light: #fdfbf7;      /* Warm white / fine linen paper */
+  --color-bg-warm: #f6f1e5;       /* Light warm wood/parchment tone */
+  --color-bg-white: #ffffff;
+  
+  --color-wood-dark: #3a2218;     /* Dark espresso/chocolate oak */
+  --color-wood-medium: #5c3e35;   /* Warm walnut */
+  --color-wood-light: #a47c6c;    /* Soft cedar/tan */
+  --color-wood-pale: #e6dec9;     /* Bleached ash wood */
+
+  --color-accent-amber: #c59b6c;   /* Classic polished brass/gold quill */
+  --color-accent-hover: #a37b4c;   /* Rich aged bronze */
+  --color-forest-green: #3d5a45;   /* Vintage book cover green */
+  --color-forest-hover: #2a3d2e;
+  --color-terracotta: #b85a38;     /* Antique ink/wax seal red */
+  
+  --color-text-primary: #2b1810;   /* Rich dark coffee (high readability) */
+  --color-text-secondary: #6e564d; /* Soft mahogany brown */
+  --color-text-muted: #9e8a82;
+
+  --color-border: rgba(92, 62, 53, 0.12);
+  --color-border-focus: #c59b6c;
+
+  /* Shadows and Effects */
+  --shadow-sm: 0 2px 8px rgba(58, 34, 24, 0.04);
+  --shadow-md: 0 8px 24px rgba(58, 34, 24, 0.06);
+  --shadow-lg: 0 16px 40px rgba(58, 34, 24, 0.1);
+  --shadow-inner: inset 0 2px 4px rgba(58, 34, 24, 0.06);
+
+  /* Borders & Speeds */
+  --border-radius-sm: 6px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-fast: all 0.2s ease;
+}
+
+body.dark-mode {
+  --color-bg-light: #160f0c;      /* Deep roasted espresso */
+  --color-bg-warm: #201612;       /* Aged dark oak / walnut */
+  --color-bg-white: #281d18;      /* Bound leather box */
+  
+  --color-wood-dark: #eee0c9;     /* Bleached ash wood text */
+  --color-wood-medium: #dccab4;   /* Polished wood gold text */
+  --color-wood-light: #a47d6d;    /* Soft cedar */
+  --color-wood-pale: #36251e;
+
+  --color-text-primary: #f8f4ed;   /* Linen white primary text */
+  --color-text-secondary: #dccab4; /* Warm gold secondary text */
+  --color-text-muted: #8e7c75;
+
+  --color-border: rgba(238, 224, 201, 0.1);
+  --color-border-focus: #c59b6c;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+
+body {
+  background: var(--color-bg-light);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--color-wood-dark);
+  font-weight: 700;
+}
+
+/* Scrollbar customization for woody aesthetic */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-warm);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-wood-light);
+  border: 2px solid var(--color-bg-warm);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-wood-medium);
+}
+
+/* Alert styling overrides for visual harmony */
+.alert-overlay {
+  background: rgba(58, 34, 24, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+/* Global transitions and keyframes */
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Global transition enhancements for focus and clicks */
+input, textarea, button, select, a {
+  transition: var(--transition-smooth);
+}
