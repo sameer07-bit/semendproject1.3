@@ -36,14 +36,34 @@ public class AuthController {
         if (existingUser.isPresent() &&
             existingUser.get().getPassword().equals(user.getPassword())) {
 
+            String email = existingUser.get().getEmail();
+            String name = existingUser.get().getName();
+            
             response.put("message", "Login Successful");
-            response.put("name", existingUser.get().getName());
-            response.put("email", existingUser.get().getEmail());
+            response.put("name", name);
+            response.put("email", email);
+            response.put("token", generateMockJwtToken(email, name));
             return response;
         }
 
         response.put("message", "Invalid Email or Password");
         return response;
+    }
+
+    private String generateMockJwtToken(String email, String name) {
+        String header = "{\"alg\":\"HS256\",\"typ\":\"JWT\"}";
+        String payload = String.format(
+            "{\"sub\":\"%s\",\"name\":\"%s\",\"role\":\"ROLE_USER\",\"iat\":%d}",
+            email, name, System.currentTimeMillis() / 1000
+        );
+        
+        java.util.Base64.Encoder encoder = java.util.Base64.getUrlEncoder().withoutPadding();
+        String encodedHeader = encoder.encodeToString(header.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        String encodedPayload = encoder.encodeToString(payload.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        
+        String encodedSignature = encoder.encodeToString("mock_secret_signature_key_semendproject".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        
+        return encodedHeader + "." + encodedPayload + "." + encodedSignature;
     }
 
     // GET USERS

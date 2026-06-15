@@ -59,6 +59,9 @@ function AuthPage({ setUser, setUserName }) {
         const loggedName = response.data.name || "Writer";
         localStorage.setItem("user", loggedUser);
         localStorage.setItem("userName", loggedName);
+        if (response.data.token) {
+          localStorage.setItem("token", response.data.token);
+        }
         if (setUser) setUser(loggedUser);
         if (setUserName) setUserName(loggedName);
         navigate('/dashboard');
