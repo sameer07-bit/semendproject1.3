@@ -195,7 +195,7 @@ function Dashboard({ user, setUser, userName, setUserName }) {
       
       const cleanKeywords = keywordList.join(",") || "writing";
       // Generate a custom artistic cover matching the title and keywords using Pollinations AI
-      const promptText = `An artistic book cover illustration representing ${cleanKeywords}, title ${formData.title || "Manuscript"}, warm aesthetic, cinematic lighting, digital art`;
+      const promptText = `A stunning professional book cover art inspired by '${formData.title || "Manuscript"}', depicting '${formData.title || "Manuscript"}' as the main subject, with elements of ${cleanKeywords}, anime style key visual, digital art, high quality, vibrant colors`;
       const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptText)}?width=800&height=450&nologo=true`;
       setCoverImage(url);
       alert("Selected keywords: \"" + cleanKeywords + "\" and set matching cover photo!");
