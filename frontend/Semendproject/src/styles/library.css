@@ -256,3 +256,35 @@ body.dark-mode .mark-read-btn.is-read {
   border-color: rgba(39, 174, 96, 0.4);
   color: #2ecc71;
 }
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .library-hero {
+    padding: 50px 16px;
+  }
+  .library-hero h1 {
+    font-size: 2.2rem;
+  }
+  .library-hero p {
+    font-size: 1.0rem;
+  }
+  .library-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .library-browse-section {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .library-hero h1 {
+    font-size: 1.8rem;
+  }
+  .library-grid {
+    grid-template-columns: 100%;
+  }
+  .library-card-cover {
+    height: 150px;
+  }
+}
