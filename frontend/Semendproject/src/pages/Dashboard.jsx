@@ -194,7 +194,9 @@ function Dashboard({ user, setUser, userName, setUserName }) {
         .filter(k => k.length > 0);
       
       const cleanKeywords = keywordList.join(",") || "writing";
-      const url = `https://picsum.photos/seed/${encodeURIComponent(cleanKeywords)}/800/450`;
+      // Generate a custom artistic cover matching the title and keywords using Pollinations AI
+      const promptText = `An artistic book cover illustration representing ${cleanKeywords}, title ${formData.title || "Manuscript"}, warm aesthetic, cinematic lighting, digital art`;
+      const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptText)}?width=800&height=450&nologo=true`;
       setCoverImage(url);
       alert("Selected keywords: \"" + cleanKeywords + "\" and set matching cover photo!");
     } catch (error) {
