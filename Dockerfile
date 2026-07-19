@@ -7,7 +7,7 @@ COPY backend/demo/src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Build React Frontend
-FROM node:18-alpine AS node-build
+FROM node:20-alpine AS node-build
 WORKDIR /app/frontend
 COPY frontend/Semendproject/package*.json ./
 RUN npm ci
@@ -25,14 +25,14 @@ FROM ubuntu:22.04
 # Avoid prompt questions during install
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies (Java 17, Node.js 18, Python 3)
+# Install dependencies (Java 17, Node.js 20, Python 3)
 RUN apt-get update && apt-get install -y \
     openjdk-17-jre-headless \
     curl \
     python3 \
     python3-pip \
     python3-venv \
-    && curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
