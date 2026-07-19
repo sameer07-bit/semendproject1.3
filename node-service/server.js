@@ -8,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5000;
-const MONGODB_URI = "mongodb://localhost:27017/semendproject";
+const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.gyurphn.mongodb.net/semendproject?appName=Cluster0";
 
 let useFallback = false;
 const COMMENTS_FILE = path.join(__dirname, "comments_db.json");

@@ -26,7 +26,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@PathVariable Long id, @RequestBody Post post) {
+    public Post updatePost(@PathVariable String id, @RequestBody Post post) {
         String email = (String) request.getAttribute("userEmail");
         String role = (String) request.getAttribute("userRole");
         return postService.updatePostWithRBAC(id, post, email, role);
@@ -38,7 +38,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}/versions")
-    public List<PostVersion> getVersions(@PathVariable Long id) {
+    public List<PostVersion> getVersions(@PathVariable String id) {
         return postService.getVersionsByPostId(id);
     }
 
@@ -49,7 +49,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id) {
+    public void deletePost(@PathVariable String id) {
         String email = (String) request.getAttribute("userEmail");
         String role = (String) request.getAttribute("userRole");
         postService.deletePostWithRBAC(id, email, role);

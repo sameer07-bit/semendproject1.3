@@ -1,28 +1,25 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "posts")
+@Document(collection = "posts")
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String status;
 
     private String category;
 
-    @Column(columnDefinition = "TEXT")
     private String coverImage;
 
-    @Column(columnDefinition = "TEXT")
     private String embedding;
 
     private String authorEmail;
@@ -48,11 +45,11 @@ public class Post {
         this.category = category;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

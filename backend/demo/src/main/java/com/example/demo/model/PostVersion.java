@@ -1,34 +1,27 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "post_versions")
+@Document(collection = "post_versions")
 public class PostVersion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
-    @JsonIgnore
-    private Post post;
+    private String postId;
 
     private Integer versionNumber;
 
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String category;
 
     private String status;
 
-    @Column(columnDefinition = "TEXT")
     private String coverImage;
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -36,8 +29,8 @@ public class PostVersion {
     public PostVersion() {
     }
 
-    public PostVersion(Post post, Integer versionNumber, String title, String content, String category, String status, String coverImage) {
-        this.post = post;
+    public PostVersion(String postId, Integer versionNumber, String title, String content, String category, String status, String coverImage) {
+        this.postId = postId;
         this.versionNumber = versionNumber;
         this.title = title;
         this.content = content;
@@ -46,20 +39,20 @@ public class PostVersion {
         this.coverImage = coverImage;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Post getPost() {
-        return post;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public Integer getVersionNumber() {

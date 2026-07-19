@@ -49,7 +49,7 @@ public class PostService {
     /**
      * Updates an existing post, saving the original state to the version history if changed.
      */
-    public Post updatePost(Long id, Post updatedPost) {
+    public Post updatePost(String id, Post updatedPost) {
         Optional<Post> existingOpt = postRepository.findById(id);
         if (existingOpt.isEmpty()) {
             throw new IllegalArgumentException("Post not found with id: " + id);
@@ -71,7 +71,7 @@ public class PostService {
 
             // Save historical version
             PostVersion history = new PostVersion(
-                    existing,
+                    existing.getId(),
                     nextVersionNum,
                     existing.getTitle(),
                     existing.getContent(),
@@ -112,11 +112,11 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void deletePost(Long id) {
+    public void deletePost(String id) {
         postRepository.deleteById(id);
     }
 
-    public void deletePostWithRBAC(Long id, String email, String role) {
+    public void deletePostWithRBAC(String id, String email, String role) {
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()) {
             throw new IllegalArgumentException("Post not found with id: " + id);
@@ -130,7 +130,7 @@ public class PostService {
         }
     }
 
-    public Post updatePostWithRBAC(Long id, Post updatedPost, String email, String role) {
+    public Post updatePostWithRBAC(String id, Post updatedPost, String email, String role) {
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()) {
             throw new IllegalArgumentException("Post not found with id: " + id);
@@ -144,7 +144,7 @@ public class PostService {
         }
     }
 
-    public List<PostVersion> getVersionsByPostId(Long postId) {
+    public List<PostVersion> getVersionsByPostId(String postId) {
         return postVersionRepository.findByPostIdOrderByVersionNumberDesc(postId);
     }
 
