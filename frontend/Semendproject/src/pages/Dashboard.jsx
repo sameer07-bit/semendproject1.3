@@ -194,7 +194,7 @@ function Dashboard({ user, setUser, userName, setUserName }) {
         .filter(k => k.length > 0);
       
       const cleanKeywords = keywordList.join(",") || "writing";
-      const url = `https://loremflickr.com/800/450/${encodeURIComponent(cleanKeywords)}?lock=${Math.floor(Math.random() * 100000)}`;
+      const url = `https://picsum.photos/seed/${encodeURIComponent(cleanKeywords)}/800/450`;
       setCoverImage(url);
       alert("Selected keywords: \"" + cleanKeywords + "\" and set matching cover photo!");
     } catch (error) {
